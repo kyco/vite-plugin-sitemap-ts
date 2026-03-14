@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.3.1...v1.3.2) (2026-03-14)
+
+### Bug Fixes
+
+* Ensure correct date format ([48a4cc7](https://github.com/kyco/vite-plugin-sitemap-ts/commit/48a4cc77e18678461bdda50aa7926795ff88f210))
+
 ## [1.3.1](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.3.0...v1.3.1) (2026-03-14)
 
 ### Bug Fixes
