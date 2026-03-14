@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.1.1...v1.1.2) (2026-03-14)
+
+### Bug Fixes
+
+* **docs:** Update README ([9cc7ac3](https://github.com/kyco/vite-plugin-sitemap-ts/commit/9cc7ac3503fa80169d62e89d66d28a18f5605f77))
+* Ensure root route is always set ([bc8a3b1](https://github.com/kyco/vite-plugin-sitemap-ts/commit/bc8a3b1db607b58193575526b1af116a215d314a))
+
 ## [1.1.1](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.1.0...v1.1.1) (2026-03-14)
 
 ### Bug Fixes

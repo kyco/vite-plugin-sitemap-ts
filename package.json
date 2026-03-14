@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-sitemap-ts",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Vite plugin to generate sitemap.xml. Works in dev mode.",
   "author": "Cornelius Weidmann <cornelius@kyco.io> (https://kyco.io)",
   "license": "MIT",
