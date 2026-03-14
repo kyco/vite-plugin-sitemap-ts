@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.3.0...v1.3.1) (2026-03-14)
+
+### Bug Fixes
+
+* Simplify `hreflang` syntax ([fe58178](https://github.com/kyco/vite-plugin-sitemap-ts/commit/fe58178ea464988a422b59cce03f0ce9db471094))
+
 ## [1.3.0](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.2.0...v1.3.0) (2026-03-14)
 
 ### Features
