@@ -4,10 +4,19 @@ import { sitemap } from '../plugin'
 
 const mockLogger = { info: vi.fn() }
 const mockConfig = {
+  root: '/tmp/test',
   build: { outDir: 'dist' },
   logger: mockLogger,
 }
 const mockOptions = { hostname: 'https://example.com' }
+const { mockWriteFileSync } = vi.hoisted(() => ({
+  mockWriteFileSync: vi.fn(),
+}))
+
+vi.mock('node:fs', () => ({
+  default: { writeFileSync: mockWriteFileSync },
+  writeFileSync: mockWriteFileSync,
+}))
 
 const getPlugin = (options = mockOptions) => {
   const plugin = sitemap(options) as any
@@ -59,33 +68,33 @@ describe('+ sitemap()', () => {
     })
   })
 
-  describe('- hook:generateBundle()', () => {
-    it('should emit sitemap.xml in the client bundle only (Vite v6+)', () => {
+  describe('- hook:closeBundle()', () => {
+    it('should write sitemap.xml in the client bundle only (Vite v6+)', () => {
       const plugin = getPlugin()
-      const emitFile = vi.fn()
+      vi.mocked(mockWriteFileSync).mockClear()
 
-      plugin.generateBundle.call({ emitFile, environment: { name: 'ssr' } })
-      expect(emitFile).not.toHaveBeenCalled()
+      plugin.closeBundle.call({ environment: { name: 'ssr' } })
+      expect(mockWriteFileSync).not.toHaveBeenCalled()
 
-      plugin.generateBundle.call({ emitFile, environment: { name: 'client' } })
-      expect(emitFile).toHaveBeenCalledTimes(1)
+      plugin.closeBundle.call({ environment: { name: 'client' } })
+      expect(mockWriteFileSync).toHaveBeenCalledTimes(1)
     })
 
-    it('should emit sitemap.xml when Environment API is not available (Vite pre v6)', () => {
+    it('should write sitemap.xml when Environment API is not available (Vite pre v6)', () => {
       const plugin = getPlugin()
-      const emitFile = vi.fn()
+      vi.mocked(mockWriteFileSync).mockClear()
 
-      plugin.generateBundle.call({ emitFile })
-      expect(emitFile).toHaveBeenCalledTimes(1)
+      plugin.closeBundle.call({})
+      expect(mockWriteFileSync).toHaveBeenCalledTimes(1)
     })
 
     it('should fail gracefully when sitemap.xml generation fails', () => {
       const plugin = getPlugin()
-      const emitFile = vi.fn(() => {
+      vi.mocked(mockWriteFileSync).mockImplementationOnce(() => {
         throw new Error('fail')
       })
 
-      expect(() => plugin.generateBundle.call({ emitFile })).not.toThrow()
+      expect(() => plugin.closeBundle.call({})).not.toThrow()
     })
   })
 })
