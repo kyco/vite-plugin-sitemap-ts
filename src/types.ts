@@ -2,7 +2,7 @@ export type ChangeFreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 
 
 export type HrefLangEntry = {
   lang: string
-  href: string
+  loc: string
 }
 
 export type SitemapEntry = {

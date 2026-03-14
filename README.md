@@ -127,9 +127,9 @@ sitemap({
     {
       loc: '/about',
       hreflang: [
-        { lang: 'en', href: 'https://example.com/about' },
-        { lang: 'de', href: 'https://example.com/de/ueber' },
-        { lang: 'x-default', href: 'https://example.com/about' },
+        { lang: 'en', loc: '/about' },
+        { lang: 'de', loc: '/de/ueber' },
+        { lang: 'x-default', loc: '/about' },
       ],
     },
   ],
