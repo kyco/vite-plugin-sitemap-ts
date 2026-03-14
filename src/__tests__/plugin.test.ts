@@ -88,13 +88,13 @@ describe('+ sitemap()', () => {
       expect(mockWriteFileSync).toHaveBeenCalledTimes(1)
     })
 
-    it('should fail gracefully when sitemap.xml generation fails', () => {
+    it('should throw when sitemap.xml generation fails', () => {
       const plugin = getPlugin()
       vi.mocked(mockWriteFileSync).mockImplementationOnce(() => {
         throw new Error('fail')
       })
 
-      expect(() => plugin.closeBundle.call({})).not.toThrow()
+      expect(() => plugin.closeBundle.call({})).toThrow()
     })
   })
 })
