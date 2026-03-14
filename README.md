@@ -23,16 +23,20 @@ import { sitemap } from 'vite-plugin-sitemap-ts'
 
 export default {
   plugins: [
-    sitemap(),
+    sitemap({
+      hostname: 'https://example.com',
+    }),
   ],
 }
 ```
 
 ## Options
 
-All options are optional.
+The `hostname` option is required. All other options are optional.
 
-| Option  | Type                               | Default | Description                                                                  |
-|---------|------------------------------------|---------|------------------------------------------------------------------------------|
-| enabled | *boolean*                          | `true`  | Toggle the plugin on or off                                                  |
+| Option   | Type       | Default | Description                                                          |
+|----------|------------|---------|----------------------------------------------------------------------|
+| hostname | *string*   | -       | The hostname of the site, used to build the full URLs in the sitemap |
+| enabled  | *boolean*  | `true`  | Toggle the plugin on or off                                          |
+| routes   | *string[]* | `['/']` | An array of routes to include in the sitemap                         |
 
