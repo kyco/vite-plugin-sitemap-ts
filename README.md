@@ -116,7 +116,7 @@ sitemap({
 </urlset>
 ```
 
-### With hreflang (multi-language support):
+### With hreflang (i18n support):
 
 Use the `hreflang` property on a `SitemapEntry` to define alternate language versions of a page.
 
