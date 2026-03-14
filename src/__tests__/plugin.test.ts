@@ -7,8 +7,9 @@ const mockConfig = {
   build: { outDir: 'dist' },
   logger: mockLogger,
 }
+const mockOptions = { hostname: 'https://example.com' }
 
-const getPlugin = (options = {}) => {
+const getPlugin = (options = mockOptions) => {
   const plugin = sitemap(options) as any
   plugin.configResolved(mockConfig)
   return plugin
@@ -16,19 +17,19 @@ const getPlugin = (options = {}) => {
 
 describe('+ sitemap()', () => {
   it('should return a plugin with the correct name', () => {
-    const plugin = sitemap()
+    const plugin = sitemap(mockOptions)
     expect(plugin.name).toBe('vite-plugin-sitemap-ts')
   })
 
   describe('- options', () => {
     describe('- `enabled`', () => {
       it('should be `true` by default', () => {
-        const plugin = sitemap() as any
+        const plugin = sitemap(mockOptions) as any
         expect(plugin.apply()).toBe(true)
       })
 
       it('should be disabled when `enabled: false`', () => {
-        const plugin = sitemap({ enabled: false }) as any
+        const plugin = sitemap({ ...mockOptions, enabled: false }) as any
         expect(plugin.apply()).toBe(false)
       })
     })
@@ -46,7 +47,7 @@ describe('+ sitemap()', () => {
     })
 
     it('should serve sitemap.xml with correct headers', () => {
-      const plugin = getPlugin({ block: 'none' })
+      const plugin = getPlugin()
       const use = vi.fn()
       plugin.configureServer({ middlewares: { use } })
 
