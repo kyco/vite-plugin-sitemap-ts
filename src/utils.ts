@@ -30,11 +30,12 @@ export const generateSitemap = (entries: SitemapEntry[]): string => {
 
 export const buildSitemapEntries = (options: { hostname: string; routes: string[] }): SitemapEntry[] => {
   const host = options.hostname.replace(/\/$/, '')
+  const lastmod = new Date().toISOString()
 
   return options.routes.map((route) => {
     return {
       loc: `${host}${route}`,
-      lastmod: new Date().toISOString(),
+      lastmod,
     }
   })
 }
