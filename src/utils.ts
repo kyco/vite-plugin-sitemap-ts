@@ -28,6 +28,8 @@ const escapeXml = (value: unknown): string => {
 }
 
 export const generateSitemap = (entries: SitemapEntry[]): string => {
+  let hasHreflang = false
+
   const urls = entries
     .map((entry) => {
       let sitemapEntry = `${DSPACER}<loc>${escapeXml(entry.loc)}</loc>`
@@ -41,15 +43,14 @@ export const generateSitemap = (entries: SitemapEntry[]): string => {
         sitemapEntry += `\n${DSPACER}<priority>${escapeXml(entry.priority)}</priority>`
       }
       if (entry.hreflang?.length) {
-        for (const alt of entry.hreflang) {
+        hasHreflang = true
+        entry.hreflang.forEach((alt) => {
           sitemapEntry += `\n${DSPACER}<xhtml:link rel="alternate" hreflang="${escapeXml(alt.lang)}" href="${escapeXml(alt.href)}" />`
-        }
+        })
       }
       return `${SPACER}<url>\n${sitemapEntry}\n${SPACER}</url>`
     })
     .join('\n')
-
-  const hasHreflang = entries.some((entry) => entry.hreflang?.length)
 
   return `${xmlHeader}\n${xmlSchema(urls, hasHreflang)}`
 }
