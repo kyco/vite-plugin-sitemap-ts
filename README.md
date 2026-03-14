@@ -3,7 +3,7 @@
 A Vite plugin to generate `sitemap.xml`. Works in development mode by proxying middleware to `/sitemap.xml`.
 
 > [!IMPORTANT]
-> This plugin requires you to manually define `routes`. It does not automatically scan your build for routes!
+> This plugin requires you to manually define `routes`. It does not automatically scan your build!
 
 ## Installation
 
@@ -25,9 +25,52 @@ export default {
   plugins: [
     sitemap({
       hostname: 'https://example.com',
+      routes: ['/', '/about'],
     }),
   ],
 }
+```
+## Examples
+
+### Without routes:
+
+The plugin will generate a root route ("/") when the `routes` option is omitted.
+
+```ts
+sitemap({
+  hostname: 'https://example.com',
+})
+```
+*Output:*
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/</loc>
+    <lastmod>2026-03-14T19:27:44.429Z</lastmod>
+  </url>
+</urlset>
+```
+
+### With routes:
+
+The plugin will generate only those routes which have been defined by the `routes` option.
+
+```ts
+sitemap({
+  hostname: 'https://example.com',
+  routes: ['/about'],
+})
+```
+*Output:*
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/about</loc>
+    <lastmod>2026-03-14T19:42:17.729Z</lastmod>
+  </url>
+</urlset>
 ```
 
 ## Options
