@@ -18,7 +18,7 @@ export default defineConfig({
     }),
     viteReact(),
     sitemap({
-      enabled: true,
+      hostname: 'https://example.com',
     }),
   ],
 })
