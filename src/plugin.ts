@@ -4,15 +4,7 @@ import path from 'node:path'
 import type { Plugin, ResolvedConfig } from 'vite'
 
 import type { Options } from './types'
-import {
-  buildSitemapEntries,
-  generateSitemap,
-  LOGGER_CLEAR,
-  LOGGER_FAILURE,
-  LOGGER_PREFIX,
-  LOGGER_SUCCESS,
-  logColor,
-} from './utils'
+import { buildSitemapEntries, generateSitemap, LOGGER_CLEAR, LOGGER_PREFIX, LOGGER_SUCCESS, logColor } from './utils'
 
 const BASE_PATH = '/'
 const FILE_NAME = 'sitemap.xml'
@@ -20,8 +12,6 @@ const SITEMAP_PATH = `${BASE_PATH}${FILE_NAME}`
 
 export function sitemap(options: Options): Plugin {
   let config: ResolvedConfig
-  let success = false
-
   const enabled = options.enabled ?? true
   const host = options.hostname ?? undefined
   const routes = options.routes ?? ['/']
@@ -64,7 +54,10 @@ export function sitemap(options: Options): Plugin {
         }
       }
 
-      const outDir = config.build.outDir.replace('server', 'client') // TODO: Bit of a hack, at the minute don't know how to get the client build outDir.
+      // TODO: Bit of a hack, at the minute don't know how to get the client build outDir.
+      const outDir = config.build.outDir.endsWith('/server')
+        ? config.build.outDir.replace(/\/server$/, '/client')
+        : config.build.outDir
       config.logger.info(`\n- ${LOGGER_CLEAR}${LOGGER_PREFIX} Writing sitemap.xml at ${outDir}${SITEMAP_PATH}`)
 
       try {
@@ -75,14 +68,10 @@ export function sitemap(options: Options): Plugin {
 
         fs.writeFileSync(filePath, content, 'utf-8')
 
-        success = true
-      } catch (_err) {
-        success = false
+        config.logger.info(`${LOGGER_CLEAR}${LOGGER_SUCCESS} ${LOGGER_PREFIX} Success`)
+      } catch (err) {
+        throw new Error(`Failed to write sitemap.xml! ${err instanceof Error ? err.message : String(err)}`)
       }
-
-      config.logger.info(
-        `${LOGGER_CLEAR}${success ? LOGGER_SUCCESS : LOGGER_FAILURE} ${LOGGER_PREFIX} ${success ? `Success` : `Failed writing sitemap.xml!`}`,
-      )
     },
   }
 }

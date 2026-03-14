@@ -9,8 +9,8 @@ const xmlSchema = (content: string) => {
 }
 
 const escapeXml = (value: unknown): string => {
-  return String(value).replace(/[&<>"']/g, (ch) => {
-    switch (ch) {
+  return String(value).replace(/[&<>"']/g, (val) => {
+    switch (val) {
       case '&':
         return '&amp;'
       case '<':
@@ -22,7 +22,7 @@ const escapeXml = (value: unknown): string => {
       case "'":
         return '&apos;'
       default:
-        return ch
+        return val
     }
   })
 }
