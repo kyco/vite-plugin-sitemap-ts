@@ -1,3 +1,13 @@
+## [1.2.0](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.1.3...v1.2.0) (2026-03-14)
+
+### Features
+
+* Allow mix of strings and `SitemapEntry` objects in `routes` option ([191f507](https://github.com/kyco/vite-plugin-sitemap-ts/commit/191f5078675fdcda701c7c31cd4d8cb702af3161))
+
+### Chore
+
+* **docs:** Update README ([7b152e4](https://github.com/kyco/vite-plugin-sitemap-ts/commit/7b152e4f8eacbd9571c4d5191d4baaa4e8346376))
+
 ## [1.1.3](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.1.2...v1.1.3) (2026-03-14)
 
 ### Chore
