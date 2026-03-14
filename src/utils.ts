@@ -4,8 +4,8 @@ const SPACER = '  '
 const DSPACER = SPACER + SPACER
 
 const xmlHeader = `<?xml version="1.0" encoding="UTF-8"?>`
-const xmlSchema = (content: string) => {
-  return `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${content}\n</urlset>`
+const xmlSchema = (content: string, hasHreflang: boolean) => {
+  return `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"${hasHreflang ? ' xmlns:xhtml="http://www.w3.org/1999/xhtml"' : ''}>\n${content}\n</urlset>`
 }
 
 const escapeXml = (value: unknown): string => {
@@ -40,11 +40,18 @@ export const generateSitemap = (entries: SitemapEntry[]): string => {
       if (entry.priority !== undefined) {
         sitemapEntry += `\n${DSPACER}<priority>${escapeXml(entry.priority)}</priority>`
       }
+      if (entry.hreflang?.length) {
+        for (const alt of entry.hreflang) {
+          sitemapEntry += `\n${DSPACER}<xhtml:link rel="alternate" hreflang="${escapeXml(alt.lang)}" href="${escapeXml(alt.href)}" />`
+        }
+      }
       return `${SPACER}<url>\n${sitemapEntry}\n${SPACER}</url>`
     })
     .join('\n')
 
-  return `${xmlHeader}\n${xmlSchema(urls)}`
+  const hasHreflang = entries.some((entry) => entry.hreflang?.length)
+
+  return `${xmlHeader}\n${xmlSchema(urls, hasHreflang)}`
 }
 
 export const buildSitemapEntries = (options: {

@@ -1,2 +1,2 @@
-export type { ChangeFreq, Options, SitemapEntry } from './types'
+export type { ChangeFreq, HrefLangEntry, Options, SitemapEntry } from './types'
 export * from './plugin'

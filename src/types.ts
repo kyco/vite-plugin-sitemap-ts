@@ -1,10 +1,16 @@
 export type ChangeFreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
 
+export type HrefLangEntry = {
+  lang: string
+  href: string
+}
+
 export type SitemapEntry = {
   loc: string
   lastmod?: string
   priority?: number
   changefreq?: ChangeFreq
+  hreflang?: HrefLangEntry[]
 }
 
 export type Options = {
@@ -24,7 +30,7 @@ export type Options = {
 
   /**
    * The routes to include in the sitemap. Pass either strings or `SitemapEntry` objects
-   * for full control over "loc", "lastmod", "changefreq" and "priority".
+   * for full control over "loc", "lastmod", "changefreq", "priority" and "hreflang".
    *
    * **Default: `['/']`**
    *

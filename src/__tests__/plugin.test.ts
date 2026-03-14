@@ -110,6 +110,39 @@ describe('+ sitemap()', () => {
         expect(written).toContain('<lastmod>2025-01-01T00:00:00.000Z</lastmod>')
         expect(written).toContain('<changefreq>yearly</changefreq>')
       })
+
+      it('should generate hreflang alternate links', () => {
+        const plugin = getPlugin({
+          ...mockOptions,
+          routes: [
+            {
+              loc: '/about',
+              hreflang: [
+                { lang: 'en', href: 'https://example.com/about' },
+                { lang: 'de', href: 'https://example.com/de/ueber' },
+              ],
+            },
+          ],
+        })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"')
+        expect(written).toContain('<xhtml:link rel="alternate" hreflang="en" href="https://example.com/about" />')
+        expect(written).toContain('<xhtml:link rel="alternate" hreflang="de" href="https://example.com/de/ueber" />')
+      })
+
+      it('should NOT include xhtml namespace when no hreflang entries exist', () => {
+        const plugin = getPlugin({ ...mockOptions, routes: ['/about'] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).not.toContain('xmlns:xhtml')
+      })
     })
   })
 
