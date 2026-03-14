@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.1.2...v1.1.3) (2026-03-14)
+
+### Chore
+
+* **docs:** Update README ([3ba4250](https://github.com/kyco/vite-plugin-sitemap-ts/commit/3ba42504474a1e09c7cbea4b57c80a0830e7a2b8))
+
 ## [1.1.2](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.1.1...v1.1.2) (2026-03-14)
 
 ### Bug Fixes
