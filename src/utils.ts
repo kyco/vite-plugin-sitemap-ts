@@ -8,18 +8,37 @@ const xmlSchema = (content: string) => {
   return `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${content}\n</urlset>`
 }
 
+const escapeXml = (value: unknown): string => {
+  return String(value).replace(/[&<>"']/g, (ch) => {
+    switch (ch) {
+      case '&':
+        return '&amp;'
+      case '<':
+        return '&lt;'
+      case '>':
+        return '&gt;'
+      case '"':
+        return '&quot;'
+      case "'":
+        return '&apos;'
+      default:
+        return ch
+    }
+  })
+}
+
 export const generateSitemap = (entries: SitemapEntry[]): string => {
   const urls = entries
     .map((entry) => {
-      let sitemapEntry = `${DSPACER}<loc>${entry.loc}</loc>`
+      let sitemapEntry = `${DSPACER}<loc>${escapeXml(entry.loc)}</loc>`
       if (entry.lastmod) {
-        sitemapEntry += `\n${DSPACER}<lastmod>${entry.lastmod}</lastmod>`
+        sitemapEntry += `\n${DSPACER}<lastmod>${escapeXml(entry.lastmod)}</lastmod>`
       }
       if (entry.changefreq) {
-        sitemapEntry += `\n${DSPACER}<changefreq>${entry.changefreq}</changefreq>`
+        sitemapEntry += `\n${DSPACER}<changefreq>${escapeXml(entry.changefreq)}</changefreq>`
       }
       if (entry.priority !== undefined) {
-        sitemapEntry += `\n${DSPACER}<priority>${entry.priority}</priority>`
+        sitemapEntry += `\n${DSPACER}<priority>${escapeXml(entry.priority)}</priority>`
       }
       return `${SPACER}<url>\n${sitemapEntry}\n${SPACER}</url>`
     })
@@ -34,7 +53,7 @@ export const buildSitemapEntries = (options: { hostname: string; routes: string[
 
   return options.routes.map((route) => {
     return {
-      loc: `${host}${route}`,
+      loc: `${host}/${route.replace(/^\/+/, '')}`,
       lastmod,
     }
   })
