@@ -17,6 +17,8 @@ export default defineConfig({
       srcDirectory: 'src',
     }),
     viteReact(),
-    sitemap(),
+    sitemap({
+      hostname: 'https://example.com',
+    }),
   ],
 })
