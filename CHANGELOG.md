@@ -1,3 +1,14 @@
+## [1.1.1](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.1.0...v1.1.1) (2026-03-14)
+
+### Bug Fixes
+
+* Tests ([ae9476f](https://github.com/kyco/vite-plugin-sitemap-ts/commit/ae9476f9f6430672dd149d4b2e85bd219d481fbe))
+* Throw when sitemap fails generating and better outDir detection ([c84d9e0](https://github.com/kyco/vite-plugin-sitemap-ts/commit/c84d9e0edb7ba5e8b5753ae946bff39a2e129380))
+
+### Refactoring
+
+* Var name ([fdcf29c](https://github.com/kyco/vite-plugin-sitemap-ts/commit/fdcf29cab8390ba9be2c8e72eaa6787ea1f9fd00))
+
 ## [1.1.0](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.0.1...v1.1.0) (2026-03-14)
 
 ### Features
