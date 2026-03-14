@@ -1,0 +1,23 @@
+version: 2
+updates:
+  # Maintain dependencies for npm
+  - package-ecosystem: 'npm'
+    # # Disable all pull requests for npm dependencies
+    # open-pull-requests-limit: 0
+    directory: '/'
+    target-branch: 'develop'
+    schedule:
+      interval: 'monthly'
+    commit-message:
+      prefix: 'chore(dependencies)'
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: 'github-actions'
+    # # Disable all pull requests for GitHub Actions dependencies
+    # open-pull-requests-limit: 0
+    directory: '/'
+    target-branch: 'develop'
+    schedule:
+      interval: 'monthly'
+    commit-message:
+      prefix: 'chore(dependencies)'

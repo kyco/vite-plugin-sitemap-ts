@@ -1,0 +1,17 @@
+{
+  "name": "basic",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "update-packages": "pnpm dlx npm-check-updates --format group -i"
+  },
+  "dependencies": {
+    "vite-plugin-sitemap-ts": "workspace:*"
+  },
+  "peerDependencies": {
+    "vite": ">=2"
+  }
+}

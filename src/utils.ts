@@ -1,0 +1,18 @@
+export const SITEMAP_CONTENT = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+</urlset>`
+
+export const logColor = (color: 'red' | 'green' | 'yellow', text: string, bold = false) => {
+  const colorCode = {
+    red: bold ? '\x1b[1;31m' : '\x1b[31m',
+    green: bold ? '\x1b[1;32m' : '\x1b[32m',
+    yellow: bold ? '\x1b[1;33m' : '\x1b[33m',
+  }
+
+  return `${colorCode[color]}${text}${LOGGER_CLEAR}`
+}
+
+export const LOGGER_CLEAR = '\x1b[0m'
+export const LOGGER_PREFIX = logColor('yellow', '[sitemap-ts]', true)
+export const LOGGER_SUCCESS = logColor('green', '✓', true)
+export const LOGGER_FAILURE = logColor('red', '✗', true)
