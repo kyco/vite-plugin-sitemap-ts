@@ -86,13 +86,25 @@ describe('+ sitemap()', () => {
         expect(written).toContain('<loc>https://example.com/contact</loc>')
       })
 
+      it('should set lastmod in yyyy-MM-dd format', () => {
+        const plugin = getPlugin({ ...mockOptions, routes: ['/about'] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        const match = written.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)
+        expect(match).not.toBeNull()
+        expect(match?.[1]).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+      })
+
       it('should generate sitemap entries from a mix of strings and SitemapEntry objects', () => {
         const plugin = getPlugin({
           ...mockOptions,
           routes: [
             '/about',
             { loc: '/blog', changefreq: 'daily', priority: 0.8 },
-            { loc: '/archive', lastmod: '2025-01-01T00:00:00.000Z', changefreq: 'yearly' },
+            { loc: '/archive', lastmod: '2025-01-01', changefreq: 'yearly' },
           ],
         })
         vi.mocked(mockWriteFileSync).mockClear()
@@ -107,7 +119,7 @@ describe('+ sitemap()', () => {
         expect(written).toContain('<priority>0.8</priority>')
 
         expect(written).toContain('<loc>https://example.com/archive</loc>')
-        expect(written).toContain('<lastmod>2025-01-01T00:00:00.000Z</lastmod>')
+        expect(written).toContain('<lastmod>2025-01-01</lastmod>')
         expect(written).toContain('<changefreq>yearly</changefreq>')
       })
 

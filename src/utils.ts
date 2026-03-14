@@ -60,7 +60,7 @@ export const buildSitemapEntries = (options: {
   routes: (string | SitemapEntry)[]
 }): SitemapEntry[] => {
   const host = options.hostname.replace(/\/$/, '')
-  const lastmod = new Date().toISOString()
+  const lastmod = new Date().toISOString().split('T')[0]
 
   return options.routes.map((route) => {
     if (typeof route === 'string') {

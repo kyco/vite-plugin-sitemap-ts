@@ -48,7 +48,7 @@ sitemap({
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://example.com/</loc>
-    <lastmod>2026-03-14T19:27:44.429Z</lastmod>
+    <lastmod>2026-03-14</lastmod>
   </url>
 </urlset>
 ```
@@ -70,7 +70,7 @@ sitemap({
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://example.com/about</loc>
-    <lastmod>2026-03-14T19:42:17.729Z</lastmod>
+    <lastmod>2026-03-14</lastmod>
   </url>
 </urlset>
 ```
@@ -101,11 +101,11 @@ sitemap({
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://example.com/</loc>
-    <lastmod>2026-03-14T20:31:12.450Z</lastmod>
+    <lastmod>2026-03-14</lastmod>
   </url>
   <url>
     <loc>https://example.com/about</loc>
-    <lastmod>2026-03-14T20:31:12.450Z</lastmod>
+    <lastmod>2026-03-14</lastmod>
   </url>
   <url>
     <loc>https://example.com/blog</loc>
@@ -142,7 +142,7 @@ sitemap({
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://example.com/about</loc>
-    <lastmod>2026-03-14T21:02:53.166Z</lastmod>
+    <lastmod>2026-03-14</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://example.com/about" />
     <xhtml:link rel="alternate" hreflang="de" href="https://example.com/de/ueber" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://example.com/about" />
