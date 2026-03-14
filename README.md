@@ -2,8 +2,8 @@
 
 A Vite plugin to generate `sitemap.xml`. Works in development mode by proxying middleware to `/sitemap.xml`.
 
-> [!IMPORTANT]
-> This plugin is actively being devloped. DO NOT USE IN PRODUCTION!
+> [!WARNING]
+> **DO NOT USE IN PRODUCTION!** This plugin is actively being devloped.
 
 ## Installation
 
