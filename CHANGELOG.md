@@ -1,3 +1,24 @@
+## [1.1.0](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.0.1...v1.1.0) (2026-03-14)
+
+### Features
+
+* Generate sitemap from routes ([eddd8b5](https://github.com/kyco/vite-plugin-sitemap-ts/commit/eddd8b559268780eaf6de260996316e0429ad251))
+
+### Bug Fixes
+
+* Escape xml and normalise routes ([18ad911](https://github.com/kyco/vite-plugin-sitemap-ts/commit/18ad911055ade5fb6b6ba99717f250eed97b5edf))
+* test ([aaa8a09](https://github.com/kyco/vite-plugin-sitemap-ts/commit/aaa8a09fa50d81d7da2b41e00194547dac8cdd92))
+* Tests ([dce752a](https://github.com/kyco/vite-plugin-sitemap-ts/commit/dce752af4e492d4fa8ef5abd6252bf5715217e83))
+
+### Chore
+
+* **demo:** Add new route ([3d655cd](https://github.com/kyco/vite-plugin-sitemap-ts/commit/3d655cd8c211ad7453c69b323f89d3f7b92275b0))
+* **docs:** Update README ([052e7a6](https://github.com/kyco/vite-plugin-sitemap-ts/commit/052e7a623ef6a3f47adc7fcdbc10e220fb4ca913))
+
+### Refactoring
+
+* Simplify ([257de6d](https://github.com/kyco/vite-plugin-sitemap-ts/commit/257de6dfba05e99e0459f18b656d10dba2599df5))
+
 ## [1.0.1](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.0.0...v1.0.1) (2026-03-14)
 
 ### Chore
