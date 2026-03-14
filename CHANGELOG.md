@@ -1,3 +1,17 @@
+## [1.3.0](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.2.0...v1.3.0) (2026-03-14)
+
+### Features
+
+* Support `hreflang` entries ([5e1c5be](https://github.com/kyco/vite-plugin-sitemap-ts/commit/5e1c5be72120ed3af981ee766a5b5ce5abeda595))
+
+### Bug Fixes
+
+* Perf ([ee6aae9](https://github.com/kyco/vite-plugin-sitemap-ts/commit/ee6aae95feb3f4ccf16610ac9a6db8d253ba6805))
+
+### Chore
+
+* **docs:** Update README ([53dc69c](https://github.com/kyco/vite-plugin-sitemap-ts/commit/53dc69cd3420bc2c031ee8bc78e2008ab6d9190a))
+
 ## [1.2.0](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.1.3...v1.2.0) (2026-03-14)
 
 ### Features
