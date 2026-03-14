@@ -41,6 +41,7 @@ sitemap({
   hostname: 'https://example.com',
 })
 ```
+
 *Output:*
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -62,6 +63,7 @@ sitemap({
   routes: ['/about'],
 })
 ```
+
 *Output:*
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -73,13 +75,54 @@ sitemap({
 </urlset>
 ```
 
+### With route objects:
+
+Route objects (aka. `SitemapEntry` objects) allow for full control over "loc", "lastmod", "changefreq" and "priority".
+
+```ts
+sitemap({
+  hostname: 'https://example.com',
+  routes: [
+    '/',
+    '/about',
+    {
+      loc: '/blog',
+      lastmod: '2026-01-01',
+      changefreq: 'weekly',
+      priority: 0.8
+    },
+  ],
+})
+```
+
+*Output:*
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/</loc>
+    <lastmod>2026-03-14T20:31:12.450Z</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/about</loc>
+    <lastmod>2026-03-14T20:31:12.450Z</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/blog</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
+```
+
 ## Options
 
 The `hostname` option is required. All other options are optional.
 
-| Option   | Type       | Default | Description                                                          |
-|----------|------------|---------|----------------------------------------------------------------------|
-| hostname | *string*   | -       | The hostname of the site, used to build the full URLs in the sitemap |
-| enabled  | *boolean*  | `true`  | Toggle the plugin on or off                                          |
-| routes   | *string[]* | `['/']` | An array of routes to include in the sitemap                         |
+| Option   | Type                         | Default | Description                                                          |
+|----------|------------------------------|---------|----------------------------------------------------------------------|
+| hostname | *string*                     | -       | The hostname of the site, used to build the full URLs in the sitemap |
+| enabled  | *boolean*                    | `true`  | Toggle the plugin on or off                                          |
+| routes   | *(string \| [SitemapEntry](./src/types.ts#L3))[]* | `['/']` | An array of routes to include in the sitemap                         |
 

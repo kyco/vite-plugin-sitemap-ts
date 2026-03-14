@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import type { Options } from '../types'
 import { sitemap } from '../plugin'
 
 const mockLogger = { info: vi.fn() }
@@ -18,7 +19,7 @@ vi.mock('node:fs', () => ({
   writeFileSync: mockWriteFileSync,
 }))
 
-const getPlugin = (options = mockOptions) => {
+const getPlugin = (options: Options = mockOptions) => {
   const plugin = sitemap(options) as any
   plugin.configResolved(mockConfig)
   return plugin
@@ -40,6 +41,74 @@ describe('+ sitemap()', () => {
       it('should be disabled when `enabled: false`', () => {
         const plugin = sitemap({ ...mockOptions, enabled: false }) as any
         expect(plugin.apply()).toBe(false)
+      })
+    })
+
+    describe('- `hostname`', () => {
+      it('should throw when hostname is not specified', () => {
+        expect(() => sitemap({ hostname: '' })).toThrow(
+          'Sitemap hostname is not set and required to build the sitemap.',
+        )
+      })
+
+      it('should use hostname as the base URL for all routes', () => {
+        const plugin = getPlugin({ hostname: 'https://mysite.org', routes: ['/about'] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('<loc>https://mysite.org/about</loc>')
+      })
+
+      it('should strip trailing slash from hostname', () => {
+        const plugin = getPlugin({ hostname: 'https://mysite.org/', routes: ['/about'] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('<loc>https://mysite.org/about</loc>')
+        expect(written).not.toContain('https://mysite.org//about')
+      })
+    })
+
+    describe('- `routes`', () => {
+      it('should generate sitemap entries from string routes', () => {
+        const plugin = getPlugin({ ...mockOptions, routes: ['/', '/about', '/contact'] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('<loc>https://example.com/</loc>')
+        expect(written).toContain('<loc>https://example.com/about</loc>')
+        expect(written).toContain('<loc>https://example.com/contact</loc>')
+      })
+
+      it('should generate sitemap entries from a mix of strings and SitemapEntry objects', () => {
+        const plugin = getPlugin({
+          ...mockOptions,
+          routes: [
+            '/about',
+            { loc: '/blog', changefreq: 'daily', priority: 0.8 },
+            { loc: '/archive', lastmod: '2025-01-01T00:00:00.000Z', changefreq: 'yearly' },
+          ],
+        })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('<loc>https://example.com/about</loc>')
+
+        expect(written).toContain('<loc>https://example.com/blog</loc>')
+        expect(written).toContain('<changefreq>daily</changefreq>')
+        expect(written).toContain('<priority>0.8</priority>')
+
+        expect(written).toContain('<loc>https://example.com/archive</loc>')
+        expect(written).toContain('<lastmod>2025-01-01T00:00:00.000Z</lastmod>')
+        expect(written).toContain('<changefreq>yearly</changefreq>')
       })
     })
   })
