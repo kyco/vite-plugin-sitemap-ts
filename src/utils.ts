@@ -47,14 +47,25 @@ export const generateSitemap = (entries: SitemapEntry[]): string => {
   return `${xmlHeader}\n${xmlSchema(urls)}`
 }
 
-export const buildSitemapEntries = (options: { hostname: string; routes: string[] }): SitemapEntry[] => {
+export const buildSitemapEntries = (options: {
+  hostname: string
+  routes: (string | SitemapEntry)[]
+}): SitemapEntry[] => {
   const host = options.hostname.replace(/\/$/, '')
   const lastmod = new Date().toISOString()
 
   return options.routes.map((route) => {
+    if (typeof route === 'string') {
+      return {
+        loc: `${host}/${route.replace(/^\/+/, '')}`,
+        lastmod,
+      }
+    }
+
     return {
-      loc: `${host}/${route.replace(/^\/+/, '')}`,
-      lastmod,
+      ...route,
+      loc: `${host}/${route.loc.replace(/^\/+/, '')}`,
+      lastmod: route.lastmod ?? lastmod,
     }
   })
 }

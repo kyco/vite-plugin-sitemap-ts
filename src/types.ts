@@ -23,9 +23,21 @@ export type Options = {
   hostname: string
 
   /**
-   * An array of routes to include in the sitemap.
+   * The routes to include in the sitemap. Pass either strings or `SitemapEntry` objects
+   * for full control over "loc", "lastmod", "changefreq" and "priority".
    *
    * **Default: `['/']`**
+   *
+   * ---
+   *
+   * Example:
+   * ```ts
+   * routes: [
+   *   '/',
+   *   '/about',
+   *   { loc: '/blog', lastmod: '2026-01-01', changefreq: 'weekly', priority: 0.8 },
+   * ]
+   * ```
    */
-  routes?: string[]
+  routes?: (string | SitemapEntry)[]
 }
