@@ -118,8 +118,8 @@ describe('+ sitemap()', () => {
             {
               loc: '/about',
               hreflang: [
-                { lang: 'en', href: 'https://example.com/about' },
-                { lang: 'de', href: 'https://example.com/de/ueber' },
+                { lang: 'en', loc: '/about' },
+                { lang: 'de', loc: '/de/ueber' },
               ],
             },
           ],

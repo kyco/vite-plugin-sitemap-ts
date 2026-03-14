@@ -45,7 +45,7 @@ export const generateSitemap = (entries: SitemapEntry[]): string => {
       if (entry.hreflang?.length) {
         hasHreflang = true
         entry.hreflang.forEach((alt) => {
-          sitemapEntry += `\n${DSPACER}<xhtml:link rel="alternate" hreflang="${escapeXml(alt.lang)}" href="${escapeXml(alt.href)}" />`
+          sitemapEntry += `\n${DSPACER}<xhtml:link rel="alternate" hreflang="${escapeXml(alt.lang)}" href="${escapeXml(alt.loc)}" />`
         })
       }
       return `${SPACER}<url>\n${sitemapEntry}\n${SPACER}</url>`
@@ -74,6 +74,10 @@ export const buildSitemapEntries = (options: {
       ...route,
       loc: `${host}/${route.loc.replace(/^\/+/, '')}`,
       lastmod: route.lastmod ?? lastmod,
+      hreflang: route.hreflang?.map((alt) => ({
+        ...alt,
+        loc: `${host}/${alt.loc.replace(/^\/+/, '')}`,
+      })),
     }
   })
 }
