@@ -14,7 +14,7 @@ export function sitemap(options: Options): Plugin {
   let config: ResolvedConfig
   const enabled = options.enabled ?? true
   const host = options.hostname ?? undefined
-  const routes = options.routes ?? ['/']
+  const routes = options.routes?.length ? options.routes : ['/']
 
   if (!host) {
     throw new Error('Sitemap hostname is not set and required to build the sitemap.')
