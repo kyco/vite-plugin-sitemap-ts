@@ -1,10 +1,20 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import { mkdirSync, writeFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 
 import type { Plugin, ResolvedConfig } from 'vite'
 
 import type { Options } from './types'
-import { buildSitemapEntries, generateSitemap, LOGGER_CLEAR, LOGGER_PREFIX, LOGGER_SUCCESS, logColor } from './utils'
+import {
+  buildSitemapEntries,
+  generateSitemap,
+  getErrorMsg,
+  LOGGER_CLEAR,
+  LOGGER_PREFIX,
+  LOGGER_SUCCESS,
+  logColor,
+  logStart,
+  logSuccess,
+} from './utils'
 
 const BASE_PATH = '/'
 const FILE_NAME = 'sitemap.xml'
@@ -15,6 +25,7 @@ export function sitemap(options: Options): Plugin {
   const enabled = options.enabled ?? true
   const host = options.hostname ?? undefined
   const routes = options.routes?.length ? options.routes : ['/']
+  const customOutDir = options.outDir ?? undefined
 
   if (!host) {
     throw new Error('Sitemap hostname is not set and required to build the sitemap.')
@@ -41,6 +52,12 @@ export function sitemap(options: Options): Plugin {
       config.logger.info(
         `${LOGGER_CLEAR}${LOGGER_SUCCESS} ${LOGGER_PREFIX} Exposed new route: ${logColor('green', SITEMAP_PATH)}`,
       )
+
+      if (customOutDir) {
+        config.logger.info(
+          `${LOGGER_CLEAR}- ${LOGGER_PREFIX} Custom outDir: ${logColor('green', customOutDir)} (will be used during build)`,
+        )
+      }
     },
 
     closeBundle() {
@@ -54,23 +71,42 @@ export function sitemap(options: Options): Plugin {
         }
       }
 
-      // TODO: Bit of a hack, at the minute don't know how to get the client build outDir.
-      const outDir = config.build.outDir.endsWith('/server')
-        ? config.build.outDir.replace(/\/server$/, '/client')
-        : config.build.outDir
-      config.logger.info(`\n- ${LOGGER_CLEAR}${LOGGER_PREFIX} Writing sitemap.xml at ${outDir}${SITEMAP_PATH}`)
+      const entries = buildSitemapEntries({ hostname: host, routes })
+      const content = generateSitemap(entries)
+
+      if (customOutDir) {
+        try {
+          const normalisedOutDir = customOutDir.replace(/^\/+/, '')
+          const resolvedOutDir = resolve(config.root, normalisedOutDir)
+          const filePath = join(resolvedOutDir, FILE_NAME)
+
+          logStart(config, filePath)
+
+          mkdirSync(resolvedOutDir, { recursive: true })
+          writeFileSync(filePath, content, 'utf-8')
+
+          logSuccess(config)
+        } catch (err) {
+          throw new Error(getErrorMsg(err))
+        }
+
+        return
+      }
 
       try {
-        const entries = buildSitemapEntries({ hostname: host, routes })
-        const content = generateSitemap(entries)
-        const outDirPath = path.resolve(config.root, outDir)
-        const filePath = path.join(outDirPath, FILE_NAME)
+        const normalisedOutDir = config.build.outDir.endsWith('/server')
+          ? config.build.outDir.replace(/\/server$/, '/client')
+          : config.build.outDir
+        const resolvedOutDir = resolve(config.root, normalisedOutDir)
+        const filePath = join(resolvedOutDir, FILE_NAME)
 
-        fs.writeFileSync(filePath, content, 'utf-8')
+        logStart(config, filePath)
 
-        config.logger.info(`${LOGGER_CLEAR}${LOGGER_SUCCESS} ${LOGGER_PREFIX} Success`)
+        writeFileSync(filePath, content, 'utf-8')
+
+        logSuccess(config)
       } catch (err) {
-        throw new Error(`Failed to write sitemap.xml! ${err instanceof Error ? err.message : String(err)}`)
+        throw new Error(getErrorMsg(err))
       }
     },
   }

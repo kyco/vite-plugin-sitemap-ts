@@ -37,7 +37,7 @@ export type Options = {
    * ---
    *
    * Example:
-   * ```ts
+   * ```typescript
    * routes: [
    *   '/',
    *   '/about',
@@ -46,4 +46,23 @@ export type Options = {
    * ```
    */
   routes?: (string | SitemapEntry)[]
+
+  /**
+   * Custom output directory for the generated `sitemap.xml` file. When specified, the file is
+   * written to this directory instead of the default Vite build output directory.
+   *
+   * The path is resolved relative to the Vite project root.
+   *
+   * **Default: `undefined`** (uses Vite's `build.outDir`)
+   *
+   * ---
+   *
+   * Example:
+   * ```typescript
+   * sitemap({
+   *   outDir: 'public',
+   * })
+   * ```
+   */
+  outDir?: string
 }

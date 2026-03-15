@@ -10,13 +10,15 @@ const mockConfig = {
   logger: mockLogger,
 }
 const mockOptions = { hostname: 'https://example.com' }
-const { mockWriteFileSync } = vi.hoisted(() => ({
+const { mockWriteFileSync, mockMkdirSync } = vi.hoisted(() => ({
   mockWriteFileSync: vi.fn(),
+  mockMkdirSync: vi.fn(),
 }))
 
 vi.mock('node:fs', () => ({
-  default: { writeFileSync: mockWriteFileSync },
+  default: { writeFileSync: mockWriteFileSync, mkdirSync: mockMkdirSync },
   writeFileSync: mockWriteFileSync,
+  mkdirSync: mockMkdirSync,
 }))
 
 const getPlugin = (options: Options = mockOptions) => {
@@ -70,6 +72,44 @@ describe('+ sitemap()', () => {
         const written = mockWriteFileSync.mock.calls[0][1] as string
         expect(written).toContain('<loc>https://mysite.org/about</loc>')
         expect(written).not.toContain('https://mysite.org//about')
+      })
+    })
+
+    describe('- `outDir`', () => {
+      it('should write to custom outDir when specified', () => {
+        const plugin = getPlugin({ ...mockOptions, outDir: 'custom/output' })
+        vi.mocked(mockWriteFileSync).mockClear()
+        vi.mocked(mockMkdirSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        expect(mockMkdirSync).toHaveBeenCalledWith('/tmp/test/custom/output', { recursive: true })
+        expect(mockWriteFileSync).toHaveBeenCalledWith(
+          '/tmp/test/custom/output/sitemap.xml',
+          expect.any(String),
+          'utf-8',
+        )
+      })
+
+      it('should strip leading slashes from custom outDir', () => {
+        const plugin = getPlugin({ ...mockOptions, outDir: '/custom/output' })
+        vi.mocked(mockWriteFileSync).mockClear()
+        vi.mocked(mockMkdirSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        expect(mockMkdirSync).toHaveBeenCalledWith('/tmp/test/custom/output', { recursive: true })
+      })
+
+      it('should use default outDir when not specified', () => {
+        const plugin = getPlugin()
+        vi.mocked(mockWriteFileSync).mockClear()
+        vi.mocked(mockMkdirSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        expect(mockMkdirSync).not.toHaveBeenCalled()
+        expect(mockWriteFileSync).toHaveBeenCalledWith('/tmp/test/dist/sitemap.xml', expect.any(String), 'utf-8')
       })
     })
 
@@ -155,6 +195,61 @@ describe('+ sitemap()', () => {
         const written = mockWriteFileSync.mock.calls[0][1] as string
         expect(written).not.toContain('xmlns:xhtml')
       })
+
+      it('should use default route when routes is not provided', () => {
+        const plugin = getPlugin({ hostname: 'https://example.com' })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('<loc>https://example.com/</loc>')
+      })
+
+      it('should handle SitemapEntry with only loc', () => {
+        const plugin = getPlugin({ ...mockOptions, routes: [{ loc: '/page' }] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('<loc>https://example.com/page</loc>')
+        expect(written).toContain('<lastmod>')
+        expect(written).not.toContain('<changefreq>')
+        expect(written).not.toContain('<priority>')
+      })
+
+      it('should include priority when set to 0', () => {
+        const plugin = getPlugin({ ...mockOptions, routes: [{ loc: '/low', priority: 0 }] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('<priority>0</priority>')
+      })
+
+      it('should escape XML special characters in routes', () => {
+        const plugin = getPlugin({ ...mockOptions, routes: ['/search?q=a&b=<c>'] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('&amp;')
+        expect(written).toContain('&lt;c&gt;')
+        expect(written).not.toContain('<loc>https://example.com/search?q=a&b=<c></loc>')
+      })
+
+      it('should normalise routes with multiple leading slashes', () => {
+        const plugin = getPlugin({ ...mockOptions, routes: ['//about'] })
+        vi.mocked(mockWriteFileSync).mockClear()
+
+        plugin.closeBundle.call({})
+
+        const written = mockWriteFileSync.mock.calls[0][1] as string
+        expect(written).toContain('<loc>https://example.com/about</loc>')
+      })
     })
   })
 
@@ -180,6 +275,20 @@ describe('+ sitemap()', () => {
 
       expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'text/xml; charset=utf-8')
     })
+
+    it('should serve valid XML content', () => {
+      const plugin = getPlugin({ ...mockOptions, routes: ['/about'] })
+      const use = vi.fn()
+      plugin.configureServer({ middlewares: { use } })
+
+      const handler = use.mock.calls[0][1]
+      const res = { setHeader: vi.fn(), end: vi.fn() }
+      handler({}, res)
+
+      const content = res.end.mock.calls[0][0] as string
+      expect(content).toContain('<?xml version="1.0"')
+      expect(content).toContain('<loc>https://example.com/about</loc>')
+    })
   })
 
   describe('- hook:closeBundle()', () => {
@@ -200,6 +309,29 @@ describe('+ sitemap()', () => {
 
       plugin.closeBundle.call({})
       expect(mockWriteFileSync).toHaveBeenCalledTimes(1)
+    })
+
+    it('should skip writing in dev mode (Vite v6+)', () => {
+      const plugin = getPlugin()
+      vi.mocked(mockWriteFileSync).mockClear()
+
+      plugin.closeBundle.call({ environment: { name: 'client', mode: 'dev' } })
+      expect(mockWriteFileSync).not.toHaveBeenCalled()
+    })
+
+    it('should rewrite /server outDir to /client', () => {
+      const serverConfig = {
+        root: '/tmp/test',
+        build: { outDir: 'dist/server' },
+        logger: mockLogger,
+      }
+      const plugin = sitemap(mockOptions) as any
+      plugin.configResolved(serverConfig)
+      vi.mocked(mockWriteFileSync).mockClear()
+
+      plugin.closeBundle.call({})
+
+      expect(mockWriteFileSync).toHaveBeenCalledWith('/tmp/test/dist/client/sitemap.xml', expect.any(String), 'utf-8')
     })
 
     it('should throw when sitemap.xml generation fails', () => {
