@@ -1,3 +1,13 @@
+## [1.4.0](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.3.2...v1.4.0) (2026-03-15)
+
+### Features
+
+* Add `outDir` option ([7920b13](https://github.com/kyco/vite-plugin-sitemap-ts/commit/7920b13136b4d632b00f1fbaa0072ae60d02907a))
+
+### Chore
+
+* Update biome rules ([6283b33](https://github.com/kyco/vite-plugin-sitemap-ts/commit/6283b339cd9d3d1ef7d6c1afe943984074d4140c))
+
 ## [1.3.2](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.3.1...v1.3.2) (2026-03-14)
 
 ### Bug Fixes
