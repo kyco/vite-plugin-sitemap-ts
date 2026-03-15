@@ -1,3 +1,5 @@
+import type { ResolvedConfig } from 'vite'
+
 import type { SitemapEntry } from './types'
 
 const SPACER = '  '
@@ -96,3 +98,15 @@ export const LOGGER_CLEAR = '\x1b[0m'
 export const LOGGER_PREFIX = logColor('yellow', '[sitemap-ts]', true)
 export const LOGGER_SUCCESS = logColor('green', '✓', true)
 export const LOGGER_FAILURE = logColor('red', '✗', true)
+
+export const logStart = (config: ResolvedConfig, path: string) => {
+  config.logger.info(`\n${LOGGER_CLEAR}- ${LOGGER_PREFIX} Writing sitemap.xml at ${path}`)
+}
+
+export const logSuccess = (config: ResolvedConfig) => {
+  config.logger.info(`${LOGGER_CLEAR}${LOGGER_SUCCESS} ${LOGGER_PREFIX} Success`)
+}
+
+export const getErrorMsg = (err: unknown) => {
+  return `Failed to write sitemap.xml! ${err instanceof Error ? err.message : String(err)}`
+}
