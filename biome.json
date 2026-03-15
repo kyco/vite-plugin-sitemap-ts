@@ -19,6 +19,12 @@
   "linter": {
     "rules": {
       "recommended": true,
+      "style": {
+        "useConst": {
+          "fix": "none",
+          "level": "warn"
+        }
+      },
       "suspicious": {
         "noConsole": {
           "level": "warn",
