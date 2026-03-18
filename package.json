@@ -30,6 +30,7 @@
   "keywords": [
     "vite",
     "vite-plugin",
+    "vite sitemap",
     "sitemap",
     "sitemap.xml",
     "typescript"
@@ -63,7 +64,7 @@
     "vite": ">=2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.7",
+    "@biomejs/biome": "^2.4.8",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.6",
