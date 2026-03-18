@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.0...v1.4.1) (2026-03-18)
+
+### Chore
+
+* Bump deps ([6360b9b](https://github.com/kyco/vite-plugin-sitemap-ts/commit/6360b9b1a2d2e6fba0291608c35d045dd8108e45))
+
 ## [1.4.0](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.3.2...v1.4.0) (2026-03-15)
 
 ### Features
