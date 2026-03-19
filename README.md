@@ -152,7 +152,7 @@ sitemap({
 
 ### With dynamic routes:
 
-Since Vite configs support async, you can fetch routes dynamically and pass them to the plugin:
+Since the Vite config supports async, you can fetch routes dynamically and pass them to the plugin.
 
 ```ts
 // vite.config.ts
