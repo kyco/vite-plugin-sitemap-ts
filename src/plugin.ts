@@ -22,7 +22,6 @@ const SITEMAP_PATH = `${BASE_PATH}${FILE_NAME}`
 
 export function sitemap(options: Options): Plugin {
   let config: ResolvedConfig
-  const enabled = options.enabled ?? true
   const host = options.hostname ?? undefined
   const routes = options.routes?.length ? options.routes : ['/']
   const customOutDir = options.outDir ?? undefined
@@ -33,8 +32,6 @@ export function sitemap(options: Options): Plugin {
 
   return {
     name: 'vite-plugin-sitemap-ts',
-
-    apply: () => enabled,
 
     configResolved(resolvedConfig) {
       config = resolvedConfig

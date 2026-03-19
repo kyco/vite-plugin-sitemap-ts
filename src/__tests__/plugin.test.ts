@@ -34,18 +34,6 @@ describe('+ sitemap()', () => {
   })
 
   describe('- options', () => {
-    describe('- `enabled`', () => {
-      it('should be `true` by default', () => {
-        const plugin = sitemap(mockOptions) as any
-        expect(plugin.apply()).toBe(true)
-      })
-
-      it('should be disabled when `enabled: false`', () => {
-        const plugin = sitemap({ ...mockOptions, enabled: false }) as any
-        expect(plugin.apply()).toBe(false)
-      })
-    })
-
     describe('- `hostname`', () => {
       it('should throw when hostname is not specified', () => {
         expect(() => sitemap({ hostname: '' })).toThrow(
