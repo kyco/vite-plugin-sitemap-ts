@@ -150,6 +150,29 @@ sitemap({
 </urlset>
 ```
 
+### With dynamic routes:
+
+Since Vite configs support async, you can fetch routes dynamically and pass them to the plugin:
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { sitemap } from 'vite-plugin-sitemap-ts'
+
+export default defineConfig(async () => {
+  const routes = await fetchRoutesFromCMS()
+
+  return {
+    plugins: [
+      sitemap({
+        hostname: 'https://example.com',
+        routes,
+      }),
+    ],
+  }
+})
+```
+
 ## Options
 
 The `hostname` option is required. All other options are optional.
