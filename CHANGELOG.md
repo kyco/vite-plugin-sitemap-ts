@@ -1,3 +1,15 @@
+## [1.4.3](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.2...v1.4.3) (2026-03-19)
+
+### Bug Fixes
+
+* Remove enabled flag ([a39f48e](https://github.com/kyco/vite-plugin-sitemap-ts/commit/a39f48e80eb7777118c19a88f8be82f4974023ea))
+
+### Docs
+
+* Add dynamic routes example ([0d03961](https://github.com/kyco/vite-plugin-sitemap-ts/commit/0d039619b81b4d1bfe1de7f0e6edf6821aa094b2))
+* Add dynamic routes exmaple ([7edaa54](https://github.com/kyco/vite-plugin-sitemap-ts/commit/7edaa543906737a9e745d2d51bdf35d4747a9793))
+* Update README ([813873b](https://github.com/kyco/vite-plugin-sitemap-ts/commit/813873b41d470c2149d37807eaaa66dc875b12ad))
+
 ## [1.4.2](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.1...v1.4.2) (2026-03-19)
 
 ### Bug Fixes
