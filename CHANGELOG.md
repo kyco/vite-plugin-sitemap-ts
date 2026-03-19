@@ -1,3 +1,9 @@
+## [1.4.2](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.1...v1.4.2) (2026-03-19)
+
+### Bug Fixes
+
+* Remove "docs" from commit analyzer ([3eaf2dd](https://github.com/kyco/vite-plugin-sitemap-ts/commit/3eaf2ddc502e94f37ce97d9956ba67c537d62d10))
+
 ## [1.4.1](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.0...v1.4.1) (2026-03-18)
 
 ### Chore
