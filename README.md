@@ -180,6 +180,5 @@ The `hostname` option is required. All other options are optional.
 | Option   | Type                                              | Default | Description                                                                   |
 |----------|---------------------------------------------------|---------|-------------------------------------------------------------------------------|
 | hostname | *string*                                          | -       | The hostname of the site, used to build the full URLs in the sitemap          |
-| enabled  | *boolean*                                         | `true`  | Toggle the plugin on or off                                                   |
 | routes   | *(string \| [SitemapEntry](./src/types.ts#L8))[]* | `['/']` | An array of routes to include in the sitemap                                  |
 | outDir   | *string*                                          | -       | Custom output directory for `sitemap.xml` (resolved relative to project root) |
