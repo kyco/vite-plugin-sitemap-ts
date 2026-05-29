@@ -4,6 +4,7 @@ import { join, resolve } from 'node:path'
 import type { Plugin, ResolvedConfig } from 'vite'
 
 import type { Options } from './types'
+
 import {
   buildSitemapEntries,
   generateSitemap,

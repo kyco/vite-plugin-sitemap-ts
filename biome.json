@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.6/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "includes": ["**", "!**/node_modules", "!**/dist", "!**/routeTree.gen.ts"]
   },
@@ -25,6 +25,9 @@
           "level": "warn"
         }
       },
+      "nursery": {
+        "noShadow": "warn"
+      },
       "suspicious": {
         "noConsole": {
           "level": "warn",
@@ -46,11 +49,12 @@
               ":BLANK_LINE:",
               ":PACKAGE:",
               ":BLANK_LINE:",
-              ":ALIAS:",
-              ":BLANK_LINE:",
               {
                 "type": true
-              }
+              },
+              ":ALIAS:",
+              ":BLANK_LINE:",
+              ":PATH:"
             ]
           }
         }
