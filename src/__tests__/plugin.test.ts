@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import type { Options } from '../types'
+
 import { sitemap } from '../plugin'
 
 const mockLogger = { info: vi.fn() }
