@@ -11,18 +11,18 @@
     "update-packages": "pnpm dlx npm-check-updates --format group -i"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.166.7",
-    "@tanstack/react-start": "^1.166.8",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "@tanstack/react-router": "^1.170.9",
+    "@tanstack/react-start": "^1.168.16",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "vite-plugin-sitemap-ts": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.4",
+    "@vitejs/plugin-react": "^6.0.2",
     "typescript": "^5.9.3",
-    "vite": "^7.3.1",
+    "vite": "^8.0.14",
     "vite-tsconfig-paths": "^6.1.1"
   }
 }
