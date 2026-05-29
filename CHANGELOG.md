@@ -1,3 +1,11 @@
+## [1.4.5](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.4...v1.4.5) (2026-05-29)
+
+### Chore
+
+* **dependencies:** bump pnpm/action-setup from 4 to 6 ([f492b85](https://github.com/kyco/vite-plugin-sitemap-ts/commit/f492b85e496683194413596dd30805c36bf0bff1))
+* Lint ([c86f2f3](https://github.com/kyco/vite-plugin-sitemap-ts/commit/c86f2f3857ca210d8d0897ae26163c4f66775160))
+* Update Biome config ([1b42c58](https://github.com/kyco/vite-plugin-sitemap-ts/commit/1b42c58cd8ff6dcc3b1c36e33ca6f3625c55daa0))
+
 ## [1.4.4](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.3...v1.4.4) (2026-05-29)
 
 ### Chore
