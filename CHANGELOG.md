@@ -1,3 +1,13 @@
+## [1.4.6](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.5...v1.4.6) (2026-06-16)
+
+### Bug Fixes
+
+* Build ([8383505](https://github.com/kyco/vite-plugin-sitemap-ts/commit/83835057b28979e4bf9dc0ff5ed7cb436246cf09))
+
+### Chore
+
+* Bump deps and node version ([2c6d2a5](https://github.com/kyco/vite-plugin-sitemap-ts/commit/2c6d2a59677ca3f55a90d7a70b557d649e2bf842))
+
 ## [1.4.5](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.4...v1.4.5) (2026-05-29)
 
 ### Chore
