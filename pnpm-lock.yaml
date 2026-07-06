@@ -11,6 +11,9 @@ importers:
       '@biomejs/biome':
         specifier: ^2.5.2
         version: 2.5.2
+      '@kyco-utils/biome-config':
+        specifier: ^1.0.2
+        version: 1.0.2(@biomejs/biome@2.5.2)
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@25.0.5(typescript@6.0.3))
@@ -421,6 +424,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@kyco-utils/biome-config@1.0.2':
+    resolution: {integrity: sha512-BU2VFEtaUBLeNB3B4BXbEsCx8O+fROBXbOu1sKeFIXlv+5iaW3EfvPxRz+v9owj6oA44tIZ3dLGa9Blwvho1yg==}
+    peerDependencies:
+      '@biomejs/biome': '>=2.5.0'
 
   '@napi-rs/wasm-runtime@1.1.6':
     resolution: {integrity: sha512-ZLv/JdUfkvOy9eCnnBaGfiO+XimbjebAeO+MRQqD/B+FR1tnRN0tpKSJHRbE8sFfS6aqsXZ67TQjfwfsxULVbg==}
@@ -2975,6 +2983,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@kyco-utils/biome-config@1.0.2(@biomejs/biome@2.5.2)':
+    dependencies:
+      '@biomejs/biome': 2.5.2
 
   '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)':
     dependencies:

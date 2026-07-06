@@ -1,62 +1,12 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@kyco-utils/biome-config/biome"],
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "files": {
-    "includes": ["**", "!**/node_modules", "!**/dist", "!**/routeTree.gen.ts"]
-  },
-  "formatter": {
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 120
-  },
-  "javascript": {
-    "formatter": {
-      "semicolons": "asNeeded",
-      "arrowParentheses": "always",
-      "trailingCommas": "all",
-      "quoteStyle": "single"
-    }
-  },
-  "linter": {
-    "rules": {
-      "preset": "recommended",
-      "style": {
-        "useConst": {
-          "fix": "none",
-          "level": "warn"
-        }
-      },
-      "suspicious": {
-        "noShadow": "warn",
-        "noConsole": {
-          "level": "warn",
-          "options": {
-            "allow": ["info", "warn", "error", "group", "groupCollapsed", "groupEnd"]
-          }
-        }
-      }
-    }
-  },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": {
-          "level": "on",
-          "options": {
-            "groups": [
-              ":NODE:",
-              ":BLANK_LINE:",
-              ":PACKAGE:",
-              ":BLANK_LINE:",
-              {
-                "type": true
-              },
-              ":ALIAS:",
-              ":BLANK_LINE:",
-              ":PATH:"
-            ]
-          }
-        }
-      }
-    }
+    "includes": ["**", "!**/src/routeTree.gen.ts"]
   }
 }
