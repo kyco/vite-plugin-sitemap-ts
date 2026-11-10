@@ -1,3 +1,11 @@
+## [1.4.9](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.8...v1.4.9) (2026-11-10)
+
+### Chore
+
+* bump deps ([81f71c3](https://github.com/kyco/vite-plugin-sitemap-ts/commit/81f71c3fc5cb160bada599cfdaec35cba26be14e))
+* **dependencies:** bump actions/setup-node from 6 to 7 ([d22ece6](https://github.com/kyco/vite-plugin-sitemap-ts/commit/d22ece6799f9686e2a2a69f206baebc533087be1))
+* lint ([f3d4784](https://github.com/kyco/vite-plugin-sitemap-ts/commit/f3d47845c39b62312dd84139f7ee1399bf8aa708))
+
 ## [1.4.8](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.7...v1.4.8) (2026-07-06)
 
 ## [1.4.7](https://github.com/kyco/vite-plugin-sitemap-ts/compare/v1.4.6...v1.4.7) (2026-07-06)
