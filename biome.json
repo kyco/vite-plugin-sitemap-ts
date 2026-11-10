@@ -1,12 +1,7 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["@kyco-utils/biome-config/biome"],
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
   "files": {
-    "includes": ["**", "!**/src/routeTree.gen.ts"]
+    "includes": ["**", "!**/src/routeTree.gen.ts", "!CHANGELOG.md"]
   }
 }

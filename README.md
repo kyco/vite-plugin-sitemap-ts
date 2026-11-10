@@ -42,7 +42,8 @@ sitemap({
 })
 ```
 
-*Output:*
+_Output:_
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -64,7 +65,8 @@ sitemap({
 })
 ```
 
-*Output:*
+_Output:_
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -89,13 +91,14 @@ sitemap({
       loc: '/blog',
       lastmod: '2026-01-01',
       changefreq: 'weekly',
-      priority: 0.8
+      priority: 0.8,
     },
   ],
 })
 ```
 
-*Output:*
+_Output:_
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -136,7 +139,8 @@ sitemap({
 })
 ```
 
-*Output:*
+_Output:_
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -178,7 +182,7 @@ export default defineConfig(async () => {
 The `hostname` option is required. All other options are optional.
 
 | Option   | Type                                              | Default | Description                                                                   |
-|----------|---------------------------------------------------|---------|-------------------------------------------------------------------------------|
-| hostname | *string*                                          | -       | The hostname of the site, used to build the full URLs in the sitemap          |
-| routes   | *(string \| [SitemapEntry](./src/types.ts#L8))[]* | `['/']` | An array of routes to include in the sitemap                                  |
-| outDir   | *string*                                          | -       | Custom output directory for `sitemap.xml` (resolved relative to project root) |
+| -------- | ------------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
+| hostname | _string_                                          | -       | The hostname of the site, used to build the full URLs in the sitemap          |
+| routes   | _(string \| [SitemapEntry](./src/types.ts#L8))[]_ | `['/']` | An array of routes to include in the sitemap                                  |
+| outDir   | _string_                                          | -       | Custom output directory for `sitemap.xml` (resolved relative to project root) |
